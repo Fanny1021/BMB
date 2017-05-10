@@ -115,7 +115,7 @@ public class HorizontalStepsViewIndicator extends View
         mCompletedPaint.setAntiAlias(true);
         mCompletedPaint.setColor(mCompletedLineColor);
         mCompletedPaint.setStyle(Paint.Style.STROKE);
-        mCompletedPaint.setStrokeWidth(2);
+        mCompletedPaint.setStrokeWidth(1);
 
         mUnCompletedPaint.setPathEffect(mEffects);
         mCompletedPaint.setStyle(Paint.Style.FILL);
@@ -200,7 +200,7 @@ public class HorizontalStepsViewIndicator extends View
             if(i <= mComplectingPosition&&mStepBeanList.get(0).getState()!=StepBean.STEP_UNDO)//判断在完成之前的所有点
             {
                 //判断在完成之前的所有点，画完成的线，这里是矩形,很细的矩形，类似线，为了做区分，好看些
-                canvas.drawRect(preComplectedXPosition + mCircleRadius - 10, mLeftY, afterComplectedXPosition - mCircleRadius + 10, mRightY, mCompletedPaint);
+                canvas.drawRect(preComplectedXPosition + mCircleRadius - 6, mLeftY, afterComplectedXPosition - mCircleRadius + 6, mRightY, mCompletedPaint);
             } else
             {
                 mPath.moveTo(preComplectedXPosition + mCircleRadius, mCenterY);

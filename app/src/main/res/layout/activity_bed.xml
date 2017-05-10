@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:background="#fff">
+    android:background="#fff"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/ll_vp"
@@ -13,26 +13,21 @@
         android:layout_weight="1.5"
         android:orientation="vertical">
 
-        <com.gigamole.infinitecycleviewpager.HorizontalInfiniteCycleViewPager
-            android:id="@+id/hicvp"
+        <ImageView
+
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:icvp_interpolator="@android:anim/accelerate_decelerate_interpolator"
-            app:icvp_scroll_duration="250"
-            app:icvp_center_page_scale_offset="30dp"
-            app:icvp_min_page_scale_offset="5dp"
-            app:icvp_max_page_scale="0.8"
-            app:icvp_min_page_scale="0.55"
-            app:icvp_medium_scaled="false"
-            />
+            android:background="@drawable/bednew"
+            android:scaleType="center"/>
+
     </LinearLayout>
 
     <GridLayout
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_below="@+id/ll_vp"
         android:layout_weight="2.5"
-
         android:columnCount="2"
         android:orientation="vertical"
         android:rowCount="3">
@@ -42,6 +37,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/bg_rectangle_with_stroke_dash"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -55,16 +51,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa1"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa1" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="左侧翻"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -79,16 +76,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa2"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa2" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="右侧翻"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
 
@@ -99,6 +97,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rectangle_with_stroke_dash"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -112,16 +111,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa5"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa5" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="抬脚"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -136,16 +136,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa6"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa6" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="落脚"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </LinearLayout>
@@ -155,6 +156,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rectangle_with_stroke_dash"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -168,16 +170,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa9"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa9" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="自动翻A"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -192,16 +195,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa10"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa10" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="自动翻B"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </LinearLayout>
@@ -211,6 +215,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="20dp"
+            android:background="@drawable/bg_rectangle_with_stroke_dash"
 
             android:orientation="horizontal">
 
@@ -225,16 +230,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa3"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa3" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="起背"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -249,16 +255,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa4"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa4" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="背平"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </LinearLayout>
@@ -268,6 +275,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rectangle_with_stroke_dash"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -281,16 +289,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa7"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa7" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="便盆开"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -305,16 +314,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/aa8"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/aa8" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="便盆关"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </LinearLayout>
@@ -324,6 +334,7 @@
             android:layout_height="100dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
+            android:background="@drawable/bg_rectangle_with_stroke_dash"
             android:orientation="horizontal">
 
 
@@ -338,16 +349,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
-                    android:src="@drawable/ac"
-                    android:background="#0000"/>
+                    android:background="#0000"
+                    android:src="@drawable/ac" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="1"
+                    android:gravity="center"
                     android:text="复位"
-                    android:textColor="#000000"
-                    android:gravity="center"/>
+                    android:textColor="#000000" />
             </LinearLayout>
 
         </LinearLayout>

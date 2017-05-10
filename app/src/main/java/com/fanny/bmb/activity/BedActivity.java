@@ -28,10 +28,7 @@ import butterknife.ButterKnife;
  */
 
 public class BedActivity extends Activity implements View.OnClickListener {
-    @BindView(R.id.hicvp)
-    HorizontalInfiniteCycleViewPager hicvp;
-    @BindView(R.id.ll_vp)
-    LinearLayout llVp;
+
     @BindView(R.id.btn_turnleft)
     ImageButton btnTurnleft;
     @BindView(R.id.btn_turnright)
@@ -69,7 +66,7 @@ public class BedActivity extends Activity implements View.OnClickListener {
     char SendData11[] = {'$', 'A', 'K', '0', '0', '0', 'x'};   //
     char SendData12[] = {'$', 'A', 'L', '0', '0', '0', 'x'};   //
 
-    private SocketUtil socketUtil;
+//    private SocketUtil socketUtil;
     private String ipaddr = "10.10.100.254";
     private int portnum=8899;
 
@@ -83,10 +80,6 @@ public class BedActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_bed);
         ButterKnife.bind(this);
 
-        HorizontalInfiniteCycleViewPager hicvp = (HorizontalInfiniteCycleViewPager) findViewById(R.id.hicvp);
-        hicvp.setAdapter(new HorizontalPagerAdapter(this));
-        hicvp.setScrollDuration(3000);
-        hicvp.startAutoScroll(true);
 
         btnTurnleft= (ImageButton) findViewById(R.id.btn_turnleft);
         btnTurnright= (ImageButton) findViewById(R.id.btn_turnright);
@@ -136,29 +129,25 @@ public class BedActivity extends Activity implements View.OnClickListener {
             }
         };
 
-        socketUtil=new SocketUtil();
-        //开启子线程，创建socket连接
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message msg=new Message();
-                int connect = socketUtil.connect(ipaddr, portnum);
-                switch (connect){
-                    case 0:
-                        msg.what=0;
-                        myHandler.sendMessage(msg);
-                        break;
-                    case -1:
-                        msg.what=-1;
-                        myHandler.sendMessage(msg);
-                        break;
-                    case 1:
-                        msg.what=1;
-                        myHandler.sendMessage(msg);
-                        break;
-                }
-            }
-        }).start();
+        /**
+         * 进入界面，提示连接状态
+         */
+        Message msg = new Message();
+        int connect = SocketUtil.connectStaus;
+        switch (connect) {
+            case 0:
+                msg.what = 0;
+                myHandler.sendMessage(msg);
+                break;
+            case -1:
+                msg.what = -1;
+                myHandler.sendMessage(msg);
+                break;
+            case 1:
+                msg.what = 1;
+                myHandler.sendMessage(msg);
+                break;
+        }
     }
 
 
@@ -167,91 +156,91 @@ public class BedActivity extends Activity implements View.OnClickListener {
         switch (v.getId()){
             case R.id.btn_turnleft:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData1);
+                SocketUtil.SendData(SendData1);
                 break;
             case R.id.btn_turnright:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData2);
+                SocketUtil.SendData(SendData2);
                 break;
             case R.id.btn_situp:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData3);
+                SocketUtil.SendData(SendData3);
                 break;
             case R.id.btn_liedown:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData4);
+                SocketUtil.SendData(SendData4);
                 break;
             case R.id.btn_liftfoot:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData5);
+                SocketUtil.SendData(SendData5);
                 break;
             case R.id.btn_stayfoot:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData6);
+                SocketUtil.SendData(SendData6);
                 break;
             case R.id.btn_open_bedpan:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData7);
+                SocketUtil.SendData(SendData7);
                 break;
             case R.id.btn_close_bedpan:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData8);
+                SocketUtil.SendData(SendData8);
                 break;
             case R.id.btn_autioA:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData9);
+                SocketUtil.SendData(SendData9);
                 break;
             case R.id.btn_autioB:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData10);
+                SocketUtil.SendData(SendData10);
                 break;
             case R.id.btn_reset:
                 vibrator.vibrate(100);
-                if(!socketUtil.isConnect){
+                if(SocketUtil.connectStaus!=1){
                     Toast.makeText(BedActivity.this,"请检查您的网络",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                socketUtil.SendData(SendData11);
+                SocketUtil.SendData(SendData11);
                 break;
 
         }

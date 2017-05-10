@@ -150,33 +150,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/colorGreen"
+        android:layout_weight="1.2"
+
         android:orientation="vertical"
         android:gravity="center">
         <LinearLayout
-            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:orientation="horizontal"
+            android:gravity="center"
             >
+            <ImageButton
+                android:id="@+id/im_reply"
+                android:scaleX="0.9"
+                android:scaleY="0.8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ic_ready"/>
             <TextView
-                android:layout_marginLeft="35dp"
                 android:id="@+id/tv_reply"
-                android:layout_gravity="center"
+                android:gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="设备\n准备"
-                android:textSize="10dp"
+                android:textSize="13sp"
                 android:textColor="#000000"
-                android:drawableLeft="@drawable/ic_ready"/>
+                />
             <ImageView
+                android:layout_marginLeft="70dp"
                 android:id="@+id/im_flag"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="190dp"
                 android:src="@mipmap/offline"/>
         </LinearLayout>
 
@@ -185,9 +191,9 @@
             android:id="@+id/step_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="2"
+            android:layout_weight="1.5"
             android:layout_centerInParent="true"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@android:color/white" />
 
 
 
@@ -196,13 +202,13 @@
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
+        android:layout_weight="2.5"
         android:columnCount="2"
         android:rowCount="3">
 
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -223,7 +229,7 @@
 
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -244,7 +250,7 @@
 
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -265,7 +271,7 @@
 
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -286,7 +292,7 @@
 
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:gravity="center"
             android:orientation="vertical">
 
@@ -307,7 +313,7 @@
 
         <LinearLayout
             android:layout_width="170dp"
-            android:layout_height="100dp"
+            android:layout_height="90dp"
             android:gravity="center"
             android:orientation="vertical">
 

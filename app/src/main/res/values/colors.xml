@@ -5,4 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorGreen">#7798D07A</color>
     <color name="colorRed">#88f4511e</color>
+    <color name="colorFreshGreen">#19FF00</color>
+    <color name="btnClickColor">#00a1db</color>
+    <color name="btnNormalColor">#00acff</color>
 </resources>

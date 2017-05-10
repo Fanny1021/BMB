@@ -1,51 +1,195 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="#ffffff"
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/fl_im_user"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/bussinessman" />
+
+        <TextView
+            android:id="@+id/fl_user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_toRightOf="@id/fl_im_user"
+            android:gravity="center"
+            android:text="个人中心"
+            android:textSize="25sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
         android:id="@+id/photo_layout"
-        android:paddingRight="10dp">
-    <ImageView
-        android:id="@+id/image_photo"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:background="@drawable/sheep"
-        android:padding="5dip" />
-
-    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginLeft="20dp"
-        android:layout_toRightOf="@id/image_photo"
+        android:layout_margin="10dp"
         android:gravity="center_vertical">
 
-        <TextView
-            android:id="@+id/user_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:singleLine="true"
-            android:text="User"
-            android:textColor="#2b2b2b"
-            android:textSize="18dp" />
 
-        <TextView
-            android:id="@+id/user_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/user_name"
-            android:layout_marginTop="5dp"
-            android:singleLine="true"
-            android:text="user@htghmail.com"
-            android:textColor="#7a7a7a"
-            android:textSize="14dp" />
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:background="@drawable/sheep"
+            android:padding="5dip" />
+
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/image_photo">
+
+            <RelativeLayout
+                android:id="@+id/rl_unlogin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="未登录"
+                    android:textSize="23sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_login"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="User"
+                    android:textColor="#2b2b2b"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:id="@+id/user_gentle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_toRightOf="@+id/user_name"
+                    android:text="女"
+                    android:textColor="#7a7a7a"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_below="@+id/user_name"
+                    android:id="@+id/user_staus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="登录状态"
+                    android:textSize="18sp" />
+
+                <ImageView
+                    android:layout_marginLeft="20dp"
+                    android:layout_toRightOf="@+id/user_staus"
+                    android:layout_below="@+id/user_gentle"
+                    android:id="@+id/iv_staus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/offline" />
+
+            </RelativeLayout>
+
+        </FrameLayout>
 
     </RelativeLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IP地址：" />
+            　　
+
+            <EditText
+                android:textColor="#000000"
+                android:text="192.168.0.89"
+                android:gravity="center"
+                android:id="@+id/ip_address0"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="IP端口号：" />
+            　　
+
+            <EditText
+                android:textColor="#000000"
+                android:text="8888"
+                android:inputType="numberDecimal|numberSigned"
+                android:gravity="center"
+                android:id="@+id/ip_port0"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/bt_login_local"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:background="@drawable/login_bt_selector"
+            android:text="本地登录" />
+
+        <Button
+            android:id="@+id/bt_login_remote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/bt_login_local"
+            android:background="@drawable/login_bt_selector"
+            android:text="远程登录" />
     </RelativeLayout>
 
 </LinearLayout>
+

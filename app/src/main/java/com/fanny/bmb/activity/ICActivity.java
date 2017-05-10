@@ -27,10 +27,12 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.baoyachi.stepview.HorizontalStepView;
 import com.baoyachi.stepview.bean.StepBean;
 import com.fanny.bmb.R;
+import com.fanny.bmb.fragment.UserFragment;
 import com.fanny.bmb.util.SocketUtil;
 import com.gitonway.lee.niftymodaldialogeffects.lib.Effectstype;
 import com.gitonway.lee.niftymodaldialogeffects.lib.NiftyDialogBuilder;
 
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,7 +88,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
     @BindView(R.id.im_flag)
     ImageView imFlag;
 
-    private SocketUtil socketUtil;
+
     private String ipaddr = "10.10.100.254";
     private int portnum = 8899;
 
@@ -98,6 +100,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
     int[] runstflag = new int[13];
     int snum = 0;
 
+    private ImageButton imReply;
     private EditText waterTemp;
     private EditText windTemp;
     private RadioGroup rdg;
@@ -132,7 +135,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
         ButterKnife.bind(this);
 
         //处理socket连接状态
-        final Handler myHandler = new Handler() {
+        Handler myHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
@@ -144,40 +147,36 @@ public class ICActivity extends Activity implements View.OnClickListener {
                         break;
                     case 1:
                         Toast.makeText(ICActivity.this, "网络连接成功", Toast.LENGTH_SHORT).show();
-                        //实时接受服务器端的数据
+//                        //实时接受服务器端的数据
                         recDataParam();
                         break;
                 }
             }
         };
-        socketUtil = new SocketUtil();
-        //开启子线程，创建socket连接
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Message msg = new Message();
-                int connect = socketUtil.connect(ipaddr, portnum);
-                switch (connect) {
-                    case 0:
-                        msg.what = 0;
-                        myHandler.sendMessage(msg);
-                        break;
-                    case -1:
-                        msg.what = -1;
-                        myHandler.sendMessage(msg);
-                        break;
-                    case 1:
-                        msg.what = 1;
-                        myHandler.sendMessage(msg);
-                        break;
-                }
-            }
-        }).start();
 
+        /**
+         * 进入界面，提示连接状态
+         */
+        Message msg = new Message();
+        int connect = SocketUtil.connectStaus;
+        switch (connect) {
+            case 0:
+                msg.what = 0;
+                myHandler.sendMessage(msg);
+                break;
+            case -1:
+                msg.what = -1;
+                myHandler.sendMessage(msg);
+                break;
+            case 1:
+                msg.what = 1;
+                myHandler.sendMessage(msg);
+                break;
+        }
 
-        initData();
-
-
+        /**
+         * findview
+         */
         stepView1 = (HorizontalStepView) findViewById(R.id.step_view);
         stepBeanList = new ArrayList<>();
         stepBean0 = new StepBean("等待开始", 1);
@@ -194,14 +193,14 @@ public class ICActivity extends Activity implements View.OnClickListener {
         stepBeanList.add(stepBean5);
 
         stepView1.setStepViewTexts(stepBeanList)
-                .setTextSize(10)
-                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(this, android.R.color.white))//设置StepsViewIndicator完成线的颜色
-                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(this, R.color.uncompleted_text_color))//设置StepsViewIndicator未完成线的颜色
-                .setStepViewComplectedTextColor(ContextCompat.getColor(this, android.R.color.white))//设置StepsView text完成线的颜色
-                .setStepViewUnComplectedTextColor(ContextCompat.getColor(this, R.color.uncompleted_text_color))//设置StepsView text未完成线的颜色
-                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this, R.drawable.complted))//设置StepsViewIndicator CompleteIcon
-                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this, R.drawable.default_icon))//设置StepsViewIndicator DefaultIcon
-                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this, R.drawable.attention));//设置StepsViewIndicator AttentionIcon
+                .setTextSize(13)
+                .setStepsViewIndicatorCompletedLineColor(ContextCompat.getColor(this, R.color.colorFreshGreen))//设置StepsViewIndicator完成线的颜色
+                .setStepsViewIndicatorUnCompletedLineColor(ContextCompat.getColor(this, R.color.material_blue_grey_95))//设置StepsViewIndicator未完成线的颜色
+                .setStepViewComplectedTextColor(ContextCompat.getColor(this, android.R.color.holo_green_dark))//设置StepsView text完成线的颜色
+                .setStepViewUnComplectedTextColor(ContextCompat.getColor(this, R.color.material_blue_grey_95))//设置StepsView text未完成线的颜色
+                .setStepsViewIndicatorCompleteIcon(ContextCompat.getDrawable(this, R.drawable.success))//设置StepsViewIndicator CompleteIcon
+                .setStepsViewIndicatorDefaultIcon(ContextCompat.getDrawable(this, R.drawable.process))//设置StepsViewIndicator DefaultIcon
+                .setStepsViewIndicatorAttentionIcon(ContextCompat.getDrawable(this, R.drawable.information));//设置StepsViewIndicator AttentionIcon
 
         btnClear = (ImageButton) findViewById(R.id.btn_clear);
         btnClear.setOnClickListener(this);
@@ -215,8 +214,10 @@ public class ICActivity extends Activity implements View.OnClickListener {
         btnStop.setOnClickListener(this);
         btnRecord = (ImageButton) findViewById(R.id.btn_record);
         btnRecord.setOnClickListener(this);
-        tvReply = (TextView) findViewById(R.id.tv_reply);
-        tvReply.setOnClickListener(this);
+//        tvReply = (TextView) findViewById(R.id.tv_reply);
+//        tvReply.setOnClickListener(this);
+        imReply= (ImageButton) findViewById(R.id.im_reply);
+        imReply.setOnClickListener(this);
 
         tvWaterlevel = (TextView) findViewById(R.id.tv_waterlevel);
         imWaterlevel = (ImageView) findViewById(R.id.im_waterlevel);
@@ -237,6 +238,11 @@ public class ICActivity extends Activity implements View.OnClickListener {
         imWindtemp = (ImageView) findViewById(R.id.im_windtemp);
 
         imFlag= (ImageView) findViewById(R.id.im_flag);
+
+        /**
+         * 初始化设备数据
+         */
+        initData();
 
     }
 
@@ -259,6 +265,9 @@ public class ICActivity extends Activity implements View.OnClickListener {
     int autoflag = 1;
     int amflag = 0;
 
+    /**
+     * 界面数据显示模块
+     */
     private void recDataParam() {
         /**
          * 显示报警信息
@@ -452,7 +461,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
             runflag = 1;
             tvReply.setText("准备中");
 
-            tvReply.setEnabled(false);
+            imReply.setEnabled(false);
             btnMode.setEnabled(false);
             btnParam.setEnabled(false);
 
@@ -470,7 +479,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
             runflag = 1;
             tvReply.setText("大便结束");
 
-            tvReply.setEnabled(true);
+            imReply.setEnabled(true);
             btnMode.setEnabled(false);
             btnParam.setEnabled(false);
             snum = 1;
@@ -490,7 +499,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
             runflag = 1;
             tvReply.setText("清洗中");
 
-            tvReply.setEnabled(false);
+            imReply.setEnabled(false);
             btnMode.setEnabled(false);
             btnParam.setEnabled(false);
             if (showflag) {
@@ -507,7 +516,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
             runflag = 1;
             tvReply.setText("烘干结束");
 
-            tvReply.setEnabled(true);
+            imReply.setEnabled(true);
             btnMode.setEnabled(false);
             btnParam.setEnabled(false);
             snum = 2;
@@ -527,7 +536,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
             //		tv3.setText(opraname[0]);
 
             tvReply.setText("清理中");
-            tvReply.setEnabled(false);
+            imReply.setEnabled(false);
             btnMode.setEnabled(false);
             btnParam.setEnabled(false);
 
@@ -547,10 +556,10 @@ public class ICActivity extends Activity implements View.OnClickListener {
 
             if (autoflag == 1) {   //自动模式  设备准备无法人工操作
 
-                tvReply.setEnabled(false);
+                imReply.setEnabled(false);
             }
             else {
-                tvReply.setEnabled(true);
+                imReply.setEnabled(true);
             }
             btnMode.setEnabled(true);
             btnParam.setEnabled(true);
@@ -566,7 +575,7 @@ public class ICActivity extends Activity implements View.OnClickListener {
 
         if (lcflag == 1) {   //模式为本地时远程无法操作
 
-            tvReply.setEnabled(false);
+            imReply.setEnabled(false);
             btnMode.setEnabled(false);
             btnParam.setEnabled(false);
         }
@@ -627,78 +636,13 @@ public class ICActivity extends Activity implements View.OnClickListener {
 
     private boolean isSuccess = true;
 
+    /**
+     * 参数设置模块
+     * @param v 设置面板
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_clear:
-                SweetAlertDialog clearDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
-                clearDialog.setTitleText("确定清理设备？")
-                        .setContentText("数据将不能恢复！")
-                        .setConfirmText("是的，清理")
-                        .setCancelText("取消")
-                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                            @Override
-                            public void onClick(final SweetAlertDialog sweetAlertDialog) {
-                                //异步加载之发送数据
-                                sentbuff[10] = 0x01;
-                                new AsyncTask() {
-
-                                    @Override
-                                    protected void onPreExecute() {
-                                        sweetAlertDialog.setTitleText("正在清理！")
-                                                .setContentText("请稍等!")
-                                                .changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
-                                        super.onPreExecute();
-                                    }
-
-
-                                    @Override
-                                    protected void onPostExecute(Object o) {
-                                        if (!isSuccess) {
-                                            sweetAlertDialog.setTitleText("未清理！")
-                                                    .setContentText("您的设备出现异常!")
-                                                    .setConfirmText("确定")
-                                                    .setConfirmClickListener(null)
-                                                    .changeAlertType(SweetAlertDialog.ERROR_TYPE);
-                                        } else {
-                                            sweetAlertDialog.setTitleText("清理！")
-                                                    .setContentText("您的设备已清理!")
-                                                    .setConfirmText("确定")
-                                                    .setConfirmClickListener(null)
-                                                    .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-                                        }
-                                        super.onPostExecute(o);
-                                    }
-
-                                    @Override
-                                    protected Object doInBackground(Object[] params) {
-                                        new Thread(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                socketUtil.SendDataByte(sentbuff);
-                                                try {
-                                                    Thread.sleep(1000);
-                                                } catch (InterruptedException e) {
-                                                    e.printStackTrace();
-                                                }
-                                            }
-                                        }).start();
-//                                        new Thread(new Runnable() {
-//                                            @Override
-//                                            public void run() {
-//
-//                                            }
-//                                        }).start();
-
-                                        return null;
-                                    }
-                                }.execute();
-
-                            }
-                        })
-                        .setCancelClickListener(null)
-                        .show();
-                break;
 
             case R.id.btn_mode:
                 MaterialDialog.Builder modeDialog = new MaterialDialog.Builder(this);
@@ -715,26 +659,29 @@ public class ICActivity extends Activity implements View.OnClickListener {
                             @Override
                             public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                 sentbuff[10] = 0x00;
-                                //自动
-                                if (R.id.radio1 == rdg.getCheckedRadioButtonId()) {
-                                    sentbuff[8] = 0x02;
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            socketUtil.SendDataByte(sentbuff);
-                                        }
-                                    }).start();
+                                if(SocketUtil.connectStaus==1){
+                                    //自动
+                                    if (R.id.radio1 == rdg.getCheckedRadioButtonId()) {
+                                        sentbuff[8] = 0x02;
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                SocketUtil.SendDataByte(sentbuff);
+                                            }
+                                        }).start();
+                                    }
+                                    //手动
+                                    else if (R.id.radio2 == rdg.getCheckedRadioButtonId()) {
+                                        sentbuff[8] = 0x01;
+                                        new Thread(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                SocketUtil.SendDataByte(sentbuff);
+                                            }
+                                        }).start();
+                                    }
                                 }
-                                //手动
-                                else if (R.id.radio2 == rdg.getCheckedRadioButtonId()) {
-                                    sentbuff[8] = 0x01;
-                                    new Thread(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            socketUtil.SendDataByte(sentbuff);
-                                        }
-                                    }).start();
-                                }
+
 //                                else if(R.id.radio1!=rdg.getCheckedRadioButtonId() && R.id.radio2!=rdg.getCheckedRadioButtonId()){
 //                                    Toast.makeText(ICActivity.this,"未选择模式",Toast.LENGTH_SHORT).show();
 //                                }
@@ -786,6 +733,80 @@ public class ICActivity extends Activity implements View.OnClickListener {
                         })
                         .show();
                 break;
+
+            case R.id.btn_clear:
+                SweetAlertDialog clearDialog = new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE);
+                clearDialog.setTitleText("确定清理设备？")
+                        .setContentText("数据将不能恢复！")
+                        .setConfirmText("是的，清理")
+                        .setCancelText("取消")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(final SweetAlertDialog sweetAlertDialog) {
+                                //异步加载之发送数据
+                                if(SocketUtil.connectStaus==1){
+                                    sentbuff[10] = 0x01;
+                                    new AsyncTask() {
+
+                                        @Override
+                                        protected void onPreExecute() {
+                                            sweetAlertDialog.setTitleText("正在清理！")
+                                                    .setContentText("请稍等!")
+                                                    .changeAlertType(SweetAlertDialog.PROGRESS_TYPE);
+                                            super.onPreExecute();
+                                        }
+
+
+                                        @Override
+                                        protected void onPostExecute(Object o) {
+                                            if (!isSuccess) {
+                                                sweetAlertDialog.setTitleText("未清理！")
+                                                        .setContentText("您的设备出现异常!")
+                                                        .setConfirmText("确定")
+                                                        .setConfirmClickListener(null)
+                                                        .changeAlertType(SweetAlertDialog.ERROR_TYPE);
+                                            } else {
+                                                sweetAlertDialog.setTitleText("清理！")
+                                                        .setContentText("您的设备已清理!")
+                                                        .setConfirmText("确定")
+                                                        .setConfirmClickListener(null)
+                                                        .changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+                                            }
+                                            super.onPostExecute(o);
+                                        }
+
+                                        @Override
+                                        protected Object doInBackground(Object[] params) {
+                                            new Thread(new Runnable() {
+                                                @Override
+                                                public void run() {
+                                                    SocketUtil.SendDataByte(sentbuff);
+                                                    try {
+                                                        Thread.sleep(1000);
+                                                    } catch (InterruptedException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                }
+                                            }).start();
+//                                        new Thread(new Runnable() {
+//                                            @Override
+//                                            public void run() {
+//
+//                                            }
+//                                        }).start();
+
+                                            return null;
+                                        }
+                                    }.execute();
+                                }
+
+
+                            }
+                        })
+                        .setCancelClickListener(null)
+                        .show();
+                break;
+
             case R.id.btn_state:
                 NiftyDialogBuilder stateDialog = NiftyDialogBuilder.getInstance(ICActivity.this);
                 view3 = LayoutInflater.from(this).inflate(R.layout.state_dialog_item, null);
@@ -878,12 +899,14 @@ public class ICActivity extends Activity implements View.OnClickListener {
             case R.id.btn_stop:
                 sentbuff[10] = 0x00;
                 sentbuff[8] = 0x04;
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        socketUtil.SendDataByte(sentbuff);
-                    }
-                }).start();
+                if(SocketUtil.connectStaus==1){
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            SocketUtil.SendDataByte(sentbuff);
+                        }
+                    }).start();
+                }
                 break;
 
             case R.id.btn_record:
@@ -891,36 +914,45 @@ public class ICActivity extends Activity implements View.OnClickListener {
 
                 break;
 
-            case R.id.tv_reply:
+            case R.id.im_reply:
                 sentbuff[10] = 0x00;
                 if (snum == 0) {
                     sentbuff[8] = 0x08;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            socketUtil.SendDataByte(sentbuff);
-                        }
-                    }).start();
+                    if(SocketUtil.connectStaus==1){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SocketUtil.SendDataByte(sentbuff);
+                            }
+                        }).start();
+                    }
+
                 }
 
                 if (snum == 1) {
                     sentbuff[8] = 0x10;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            socketUtil.SendDataByte(sentbuff);
-                        }
-                    }).start();
+                    if(SocketUtil.connectStaus==1){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SocketUtil.SendDataByte(sentbuff);
+                            }
+                        }).start();
+                    }
+
                 }
 
                 if (snum == 2) {
                     sentbuff[8] = 0x40;
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            socketUtil.SendDataByte(sentbuff);
-                        }
-                    }).start();
+                    if(SocketUtil.connectStaus==1){
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                SocketUtil.SendDataByte(sentbuff);
+                            }
+                        }).start();
+                    }
+
                 }
 
         }

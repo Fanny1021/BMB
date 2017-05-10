@@ -24,7 +24,7 @@
             app:layout_behavior="eu.long1.spacetablayout.SpaceTabLayoutBehavior"
 
             app:number_of_tabs="three"
-            app:starting_position="two"
+            app:starting_position="one"
 
             app:tab_color="@color/colorPrimary"
             app:button_color="@color/colorAccent"
